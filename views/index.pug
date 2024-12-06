@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  body
+      h1 Spell Checker
+      input(type="text" id="inputWord" placeholder="Enter a word")
+      button(id="checkButton") Check
+      div
+        ol#suggestions
+      script(src="/javascripts/spellchecker.js")
