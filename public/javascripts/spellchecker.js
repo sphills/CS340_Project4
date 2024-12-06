@@ -15,7 +15,7 @@ function calculatePenalty(word1, word2) {
     for (let i = 0; i <= n; i++) {
         dp[i][0] = i * 2;
     }
-    
+
     for (let j = 0; j <= m; j++){
         dp[0][j] = j * 2;
     }
@@ -38,7 +38,7 @@ async function getSuggestions(inputWord, dictionary) {
     }));
 
     scores.sort((a, b) => a.score - b.score);
-    return scores.slice(0, 10).map(entry => entry.word);
+    return scores.slice(0, 10);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -50,6 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let inputWord = input.value.toLowerCase();
         let dictionary = await fetch('../data/dictionary.txt').then(res => res.text()).then(text => text.split('\n'));
         let suggestions = await getSuggestions(inputWord, dictionary);
-        suggestionsList.innerHTML = suggestions.map(word => `<li>${word}</li>`).join('');
+        suggestionsList.innerHTML = suggestions.map(entry => `<li>${entry.word} <span>(penalty: ${entry.score})</span></li>`).join('');
     });
 });
